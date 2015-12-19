@@ -1,5 +1,8 @@
 import { connect, model, Schema } from "mongoose";
 
+// TODO: Add typings for this
+const uniqueValidator = require("mongoose-unique-validator");
+
 // Connect to MongoDB
 connect("mongodb://localhost/test");
 
@@ -49,5 +52,6 @@ const userSchema = new Schema({
         ref: "Tag"
     }]
 });
+userSchema.plugin(uniqueValidator);
 
 export const User = model("User", userSchema);
