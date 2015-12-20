@@ -9,6 +9,7 @@
   "author": "Roger Chen <rogerthechen@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^0.8.5",
     "body-parser": "^1.14.1",
     "express": "^4.13.3",
     "mongodb": "^2.1.1",

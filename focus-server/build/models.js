@@ -1,4 +1,5 @@
 var mongoose_1 = require("mongoose");
+var uniqueValidator = require("mongoose-unique-validator");
 mongoose_1.connect("mongodb://localhost/test");
 var tagSchema = new mongoose_1.Schema({
     name: mongoose_1.Schema.Types.String,
@@ -39,4 +40,5 @@ var userSchema = new mongoose_1.Schema({
             ref: "Tag"
         }]
 });
+userSchema.plugin(uniqueValidator);
 exports.User = mongoose_1.model("User", userSchema);
