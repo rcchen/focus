@@ -15,13 +15,21 @@ const app = express();
 
 app.use(bodyParser.json());
 
-app.get("/tags", (req, res) => {
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://localhost:8080/");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+const apiRouter = express.Router();
+
+apiRouter.get("/tags", (req, res) => {
     Tag.find({}, (err, tags) => {
         res.json(tags);
     });;
 });
 
-app.post("/tags", (req, res) => {
+apiRouter.post("/tags", (req, res) => {
     const tag = new Tag(req.body);
     tag.save((err, savedTag) => {
         if (err) {
@@ -32,7 +40,7 @@ app.post("/tags", (req, res) => {
     });
 });
 
-app.get("/photos", (req, res) => {
+apiRouter.get("/photos", (req, res) => {
     Photo.find({}, (err, photos) => {
         if (err) {
             res.json(500, err);
@@ -42,17 +50,17 @@ app.get("/photos", (req, res) => {
     });
 });
 
-app.post("/photos", (req, res) => {
+apiRouter.post("/photos", (req, res) => {
 
 });
 
-app.get("/users", (req, res) => {
+apiRouter.get("/users", (req, res) => {
     User.find({}, (err, users) => {
         res.json(users);
     });
 });
 
-app.post("/users", (req, res) => {
+apiRouter.post("/users", (req, res) => {
     const reqUser = req.body as Focus.Models.User;
     User.findOne({ email: reqUser.email }, (err, user) => {
         if (user) {
@@ -71,7 +79,7 @@ app.post("/users", (req, res) => {
     });
 });
 
-app.get("/reset", (req, res) => {
+apiRouter.get("/reset", (req, res) => {
     const clearTags = Tag.remove({});
     const clearPhotos = Photo.remove({});
     const clearUsers = User.remove({});
@@ -81,6 +89,8 @@ app.get("/reset", (req, res) => {
     res.sendStatus(200);
 });
 
-const server = app.listen(8080, () => {
+app.use("/api/v1", apiRouter);
+
+const server = app.listen(8081, () => {
     console.log("Server started at :%s", server.address().port);
 });
