@@ -11,10 +11,12 @@
   "dependencies": {
     "bcrypt": "^0.8.5",
     "body-parser": "^1.14.1",
+    "cors": "^2.7.1",
     "express": "^4.13.3",
     "mongodb": "^2.1.1",
     "mongoose": "^4.3.1",
     "mongoose-unique-validator": "^0.6.2",
+    "node-uuid": "^1.4.7",
     "sails-disk": "^0.10.8",
     "waterline": "^0.10.28"
   },

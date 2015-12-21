@@ -24,6 +24,10 @@
     "files": [
         "index.ts",
         "models.ts",
+        "routes/auth.ts",
+        "routes/photos.ts",
+        "routes/tags.ts",
+        "routes/users.ts",
         "../typings/tsd.d.ts"
     ],
     "atom": {
